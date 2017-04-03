@@ -1,0 +1,2 @@
+# Cakewars
+Cakewars plugin
