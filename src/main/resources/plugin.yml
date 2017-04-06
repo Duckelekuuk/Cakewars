@@ -1,0 +1,6 @@
+name: Cakewars
+version: ${project.version}
+main: com.duckelekuuk.cakewars.Cakewars
+authors: [Duckelekuuk]
+description: Cakewars plugin
+website: https://duckelekuuk.com

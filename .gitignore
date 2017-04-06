@@ -1,3 +1,5 @@
 .idea/
+target/
 src/test/
 Cakewars.iml
+dependency-reduced-pom.xml
