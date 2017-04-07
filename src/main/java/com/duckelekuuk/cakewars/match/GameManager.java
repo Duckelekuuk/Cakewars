@@ -1,7 +1,7 @@
 package com.duckelekuuk.cakewars.match;
 
 import com.duckelekuuk.cakewars.Cakewars;
-import com.duckelekuuk.cakewars.match.teams.ITeam;
+import com.duckelekuuk.cakewars.match.teams.*;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,13 +13,19 @@ public class GameManager {
 
     private @Getter Cakewars cakewars;
     private @Getter Set<ITeam> teams;
+    private @Getter Match activeMatch;
 
     public GameManager(Cakewars cakewars) {
         this.cakewars = cakewars;
-        this.teams = new HashSet<>();
+        this.teams = new HashSet<ITeam>() {{
+            add(new BlueTeam());
+            add(new GreenTeam());
+            add(new RedTeam());
+            add(new YellowTeam());
+        }};
     }
 
-    public GamePlayer getGameplayer(CommandSender player) {
+    public GamePlayer getGamePlayer(CommandSender player) {
         if(!(player instanceof Player)){
             return null;
         }
@@ -41,5 +47,21 @@ public class GameManager {
         }
 
         team.getMembers().add(player);
+    }
+
+    public ITeam getTeam(String teamName) {
+        for (ITeam team : teams) {
+            if (team.getTeamName().equalsIgnoreCase(teamName)) return team;
+        }
+
+        return null;
+    }
+
+    public ITeam getTeam(GamePlayer gamePlayer) {
+        for (ITeam team : teams) {
+            if (team.getMembers().contains(gamePlayer)) return team;
+        }
+
+        return null;
     }
 }

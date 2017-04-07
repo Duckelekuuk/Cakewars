@@ -3,14 +3,15 @@ package com.duckelekuuk.cakewars.match.teams;
 import com.duckelekuuk.cakewars.match.GamePlayer;
 import org.bukkit.ChatColor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class BlueTeam implements ITeam {
 
     private Set<GamePlayer> members;
 
-    public BlueTeam(Set<GamePlayer> members) {
-        this.members = members;
+    public BlueTeam() {
+        this.members = new HashSet<>();
     }
 
     @Override

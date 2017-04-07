@@ -1,16 +1,18 @@
 package com.duckelekuuk.cakewars.match.teams;
 
 import com.duckelekuuk.cakewars.match.GamePlayer;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class GreenTeam implements ITeam {
 
-    private Set<GamePlayer> members;
+    private @Getter Set<GamePlayer> members;
 
-    public GreenTeam(Set<GamePlayer> members) {
-        this.members = members;
+    public GreenTeam() {
+        this.members = new HashSet<>();
     }
 
     @Override
