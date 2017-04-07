@@ -6,11 +6,11 @@ import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public abstract class CakeCommand {
+public abstract class AbstractCommand {
 
     private @Getter Cakewars plugin;
 
-    public CakeCommand(Cakewars plugin) {
+    public AbstractCommand(Cakewars plugin) {
         this.plugin = plugin;
     }
 

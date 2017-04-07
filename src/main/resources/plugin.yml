@@ -4,3 +4,6 @@ main: com.duckelekuuk.cakewars.Cakewars
 authors: [Duckelekuuk]
 description: Cakewars plugin
 website: https://duckelekuuk.com
+commands:
+  cakewars:
+    description: The cakewars main command

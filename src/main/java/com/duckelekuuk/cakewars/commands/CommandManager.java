@@ -1,12 +1,10 @@
 package com.duckelekuuk.cakewars.commands;
 
 import com.duckelekuuk.cakewars.Cakewars;
-import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.material.Cake;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,7 +12,7 @@ import java.util.HashSet;
 public class CommandManager implements CommandExecutor {
 
     private Cakewars plugin;
-    private HashSet<CakeCommand> commands;
+    private HashSet<AbstractCommand> commands;
 
     public CommandManager(Cakewars plugin) {
         this.plugin = plugin;
@@ -27,7 +25,7 @@ public class CommandManager implements CommandExecutor {
         registerCommand(new HelpCommand(plugin));
     }
 
-    public void registerCommand(CakeCommand command) {
+    public void registerCommand(AbstractCommand command) {
         this.commands.add(command);
     }
 
@@ -36,11 +34,11 @@ public class CommandManager implements CommandExecutor {
         // We need to make sure there is at least 1 argument
         if(args.length < 1){
             // No arguments are given.
-            // TODO show/build help menu
+            // TODO show/build help menus
             return true;
         }
 
-        for (CakeCommand command : commands) {
+        for (AbstractCommand command : commands) {
             // Get the commandInfo annotation if exist, otherwise skip.
             CommandInfo commandInfo = command.getClass().getAnnotation(CommandInfo.class);
             if(commandInfo == null) continue;

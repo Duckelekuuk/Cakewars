@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
         usage = "help",
         aliases = {"help", "?", "h"}
 )
-public class HelpCommand extends CakeCommand {
+public class HelpCommand extends AbstractCommand {
 
     public HelpCommand(Cakewars plugin) {
         super(plugin);

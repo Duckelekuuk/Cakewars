@@ -19,5 +19,6 @@ public final class Cakewars extends JavaPlugin {
         this.gameManager = new GameManager(this);
         // Plugin startup logic
 
+        System.out.println(getConfigHandler().getGlobal().getSpawnLocation());
     }
 }

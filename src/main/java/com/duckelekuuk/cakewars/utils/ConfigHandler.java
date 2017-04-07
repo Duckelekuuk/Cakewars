@@ -1,6 +1,7 @@
 package com.duckelekuuk.cakewars.utils;
 
 import lombok.Getter;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
 
@@ -15,7 +16,7 @@ public class ConfigHandler extends JSONConfig {
     private @Getter Prices prices;
 
     public ConfigHandler(JavaPlugin plugin) {
-        super(plugin);
+        super(plugin, "config.json");
 
         this.global = new Global();
         this.prices = new Prices();
@@ -24,13 +25,16 @@ public class ConfigHandler extends JSONConfig {
     }
 
     @Getter
-    private class Global {
-        private String defaultWorld = "lobby";
+    public class Global {
+        private String defaultWorld = "world";
+        private Location spawnLocation = new Location(getPlugin().getServer().getWorld(defaultWorld), 0, 0, 0);
+        private String mapPath = "/game/Map";
+        private String mapConfigPath = "/game/config.json";
 
     }
 
     @Getter
-    private class Prices {
+    public class Prices {
         private boolean testbool = true;
     }
 }

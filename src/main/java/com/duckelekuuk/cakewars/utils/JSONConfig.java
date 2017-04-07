@@ -1,12 +1,19 @@
 package com.duckelekuuk.cakewars.utils;
 
+import com.duckelekuuk.cakewars.Cakewars;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
+import org.bukkit.Location;
+import org.bukkit.material.Cake;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class JSONConfig {
@@ -14,8 +21,12 @@ public abstract class JSONConfig {
     @Ignore
     private @Getter JavaPlugin plugin;
 
-    public JSONConfig(JavaPlugin plugin) {
+    @Ignore
+    private String file;
+
+    public JSONConfig(JavaPlugin plugin, String file) {
         this.plugin = plugin;
+        this.file = file;
     }
 
     public void initialize() {
@@ -46,12 +57,11 @@ public abstract class JSONConfig {
     private void save() throws IllegalAccessException {
         // Lets recursively save this class
         JSONObject obj = saveRecursive(this);
-        System.out.println(obj.toJSONString());
-        new JSONLoader(this.plugin, "config.json").save(obj);
+        new JSONLoader(this.plugin, file).save(obj);
     }
 
     private JSONObject saveRecursive(Object object) throws IllegalAccessException {
-        JSONObject JsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 
         Field[] fields = object.getClass().getDeclaredFields();
 
@@ -73,22 +83,27 @@ public abstract class JSONConfig {
             if(clazz == this)
                 continue;
 
-            // Is the clazz one of the primitive data types?
-            if(!isWrapperType(clazz)){
-                // If the field is not one of the primitive data types we want to recursively save it
-                JsonObject.put(field.getName(), saveRecursive(clazz));
-            } else {
-                // If it IS a primitive type, we just want to save it and continue to the next one
-                JsonObject.put(field.getName(), clazz);
+            if (clazz.getClass().equals(Location.class)) {
+                Location location = (Location) clazz;
+                jsonObject.put(field.getName() + "_LOCATION", new JSONObject(location.serialize()));
+                continue;
             }
+            // Is the clazz one of the primitive data types?
+            if(!isWrapperType(clazz)) {
+                // If the field is not one of the primitive data types we want to recursively save it
+                jsonObject.put(field.getName(), saveRecursive(clazz));
+                continue;
+            }
+            // If it IS a primitive type, we just want to save it and continue to the next one
+            jsonObject.put(field.getName(), clazz);
         }
 
-        return JsonObject;
+        return jsonObject;
     }
 
 
     private void load() throws IllegalAccessException {
-        JSONObject object = (JSONObject) new JSONLoader(this.plugin, "config.json").load();
+        JSONObject object = (JSONObject) new JSONLoader(this.plugin, file).load();
 
         if (object == null) {
             return;
@@ -112,12 +127,18 @@ public abstract class JSONConfig {
             }
 
             // Check if the name of the field is in the object
-            if (!jsonObject.containsKey(field.getName())) {
+            if (!jsonObject.containsKey(field.getName())  && !jsonObject.containsKey(field.getName() + "_LOCATION")) {
                 continue;
             }
 
+            boolean isLocation = false;
             // Grab the object from the JsonObject
             Object targetObject = jsonObject.get(field.getName());
+
+            if (targetObject == null) {
+                isLocation = true;
+                targetObject = jsonObject.get(field.getName() + "_LOCATION");
+            }
 
             field.setAccessible(true); // Because circumventing private modifier protection is that easy.
 
@@ -131,6 +152,12 @@ public abstract class JSONConfig {
 
             // Is the clazz one of the primitive data types?
             if (!isWrapperType(clazz)) {
+                if (isLocation) {
+                    Map<String, Object> locationMap = new Gson().fromJson(((JSONObject)targetObject).toJSONString(), new TypeToken<HashMap<String, Object>>() {}.getType());
+                    field.set(object, Location.deserialize(locationMap));
+                    continue;
+                }
+
                 loadRecursive((JSONObject) targetObject, clazz);
                 continue;
             }
