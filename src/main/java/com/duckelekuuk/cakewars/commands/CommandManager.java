@@ -1,10 +1,12 @@
 package com.duckelekuuk.cakewars.commands;
 
 import com.duckelekuuk.cakewars.Cakewars;
+import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.material.Cake;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -59,7 +61,7 @@ public class CommandManager implements CommandExecutor {
                 }
 
                 // Remove the first argument from the array and execute the command.
-                command.onCommand(plugin.getGameManager().getGamePlayer(sender), sender, Arrays.copyOfRange(args, 1, args.length));
+                command.onCommand(plugin.getGameManager().getGameplayer(sender), sender, Arrays.copyOfRange(args, 1, args.length));
                 return true;
             }
         }
