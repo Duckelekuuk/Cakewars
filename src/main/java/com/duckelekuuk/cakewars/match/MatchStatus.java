@@ -4,6 +4,6 @@ public enum MatchStatus {
 
     LOBBY,
     COUNTDOWN,
+    INGAME,
     END,
-    RESETTING
 }
