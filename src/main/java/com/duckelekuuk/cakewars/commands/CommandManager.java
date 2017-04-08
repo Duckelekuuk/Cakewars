@@ -59,7 +59,7 @@ public class CommandManager implements CommandExecutor {
                 }
 
                 // Remove the first argument from the array and execute the command.
-                command.onCommand(plugin.getGameManager().getGameplayer(sender), sender, Arrays.copyOfRange(args, 1, args.length));
+                command.onCommand(plugin.getGameManager().getGameplayer(sender ,false), sender, Arrays.copyOfRange(args, 1, args.length));
                 return true;
             }
         }

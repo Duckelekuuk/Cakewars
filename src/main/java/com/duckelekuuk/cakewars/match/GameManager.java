@@ -1,7 +1,7 @@
 package com.duckelekuuk.cakewars.match;
 
 import com.duckelekuuk.cakewars.Cakewars;
-import com.duckelekuuk.cakewars.match.teams.ITeam;
+import com.duckelekuuk.cakewars.match.teams.*;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,15 +11,17 @@ import java.util.Set;
 
 public class GameManager {
 
-    private @Getter Cakewars cakewars;
+    private @Getter Cakewars plugin;
     private @Getter Set<ITeam> teams;
+    private @Getter Set<GamePlayer> gamePlayers;
+    private @Getter Match activeMatch;
 
-    public GameManager(Cakewars cakewars) {
-        this.cakewars = cakewars;
-        this.teams = new HashSet<>();
+    public GameManager(Cakewars plugin) {
+        this.plugin = plugin;
+        initialize();
     }
 
-    public GamePlayer getGameplayer(CommandSender player) {
+    public GamePlayer getGameplayer(CommandSender player, boolean createIfNull) {
         if(!(player instanceof Player)){
             return null;
         }
@@ -30,16 +32,24 @@ public class GameManager {
             }
         }
 
+        if (createIfNull) {
+
+        }
         return null;
     }
 
-    public void assignTeam(GamePlayer player, ITeam team) {
-        if (!teams.contains(team)) teams.add(team);
+    public void assignTeam(GamePlayer gamePlayer, ITeam team) {
+        gamePlayer.setTeam(team);
+    }
 
-        for (ITeam iTeam : teams) {
-            if (iTeam.getMembers().contains(player)) iTeam.getMembers().remove(player);
-        }
-
-        team.getMembers().add(player);
+    private void initialize() {
+        this.activeMatch = new Match(plugin);
+        this.gamePlayers = new HashSet<>();
+        this.teams = new HashSet<ITeam>() {{
+            add(new BlueTeam(plugin.getGameManager()));
+            add(new GreenTeam(plugin.getGameManager()));
+            add(new RedTeam(plugin.getGameManager()));
+            add(new YellowTeam(plugin.getGameManager()));
+        }};
     }
 }
