@@ -60,5 +60,11 @@ public class GameManager {
             add(new RedTeam(plugin.getGameManager()));
             add(new YellowTeam(plugin.getGameManager()));
         }};
+
+        if (plugin.getConfigHandler().getGlobal().isReadyToPlay()) {
+            this.activeMatch.setupMap();
+            this.activeMatch.setupConfig();
+            this.activeMatch.setupGenerators();
+        }
     }
 }

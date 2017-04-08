@@ -20,5 +20,7 @@ public class TestCommand extends AbstractCommand {
         getPlugin().getGameManager().assignTeam(player, getPlugin().getGameManager().getTeam("BLUE"));
 
         getPlugin().getGameManager().getTeam("BLUE").setColoredNames();
+
+        getPlugin().getGameManager().getActiveMatch().startGenerators();
     }
 }
