@@ -23,6 +23,7 @@ public class CommandManager implements CommandExecutor {
 
         // Register the internal commands
         registerCommand(new HelpCommand(plugin));
+        registerCommand(new TestCommand(plugin));
     }
 
     public void registerCommand(AbstractCommand command) {

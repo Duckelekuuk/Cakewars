@@ -28,8 +28,7 @@ public class ConfigHandler extends JSONConfig {
     @Getter
     public class Global {
         private boolean readyToPlay = false;
-        private String defaultWorld = "world";
-        private Location spawnLocation = new Location(getPlugin().getServer().getWorld(defaultWorld), 0, 0, 0);
+        private Location spawnLocation = new Location(getPlugin().getServer().getWorld("world"), 0, 0, 0);
         private String mapPath = "game/Map";
         private String mapConfigPath = "game";
         private String mapConfigFileName = "config.json";
