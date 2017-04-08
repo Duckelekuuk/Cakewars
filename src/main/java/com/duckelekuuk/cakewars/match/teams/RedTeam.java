@@ -1,16 +1,14 @@
 package com.duckelekuuk.cakewars.match.teams;
 
-import com.duckelekuuk.cakewars.match.GamePlayer;
+import com.duckelekuuk.cakewars.match.GameManager;
 import org.bukkit.ChatColor;
-
-import java.util.Set;
 
 public class RedTeam implements ITeam {
 
-    private Set<GamePlayer> members;
+    private GameManager gameManager;
 
-    public RedTeam(Set<GamePlayer> members) {
-        this.members = members;
+    public RedTeam(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     @Override
@@ -24,7 +22,7 @@ public class RedTeam implements ITeam {
     }
 
     @Override
-    public Set<GamePlayer> getMembers() {
-        return members;
+    public GameManager getGameManager() {
+        return gameManager;
     }
 }
