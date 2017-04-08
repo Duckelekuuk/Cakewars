@@ -1,7 +1,9 @@
 package com.duckelekuuk.cakewars.match;
 
 import com.duckelekuuk.cakewars.Cakewars;
+import com.duckelekuuk.cakewars.events.StatusChangeEvent;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
@@ -30,6 +32,15 @@ public class Match {
         this.matchStatus = MatchStatus.LOBBY;
         this.generators = new HashSet<>();
         this.loaded = true;
+    }
+
+    public void setMatchStatus(MatchStatus matchStatus) {
+        if(matchStatus == this.matchStatus) {
+            return;
+        }
+
+        Bukkit.getServer().getPluginManager().callEvent(new StatusChangeEvent(this, this.matchStatus, matchStatus));
+        this.matchStatus = matchStatus;
     }
 
     public void setupMap() {

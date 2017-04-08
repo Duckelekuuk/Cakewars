@@ -1,6 +1,7 @@
 package com.duckelekuuk.cakewars;
 
 import com.duckelekuuk.cakewars.commands.CommandManager;
+import com.duckelekuuk.cakewars.listeners.PlayerChatListener;
 import com.duckelekuuk.cakewars.listeners.PlayerJoinListener;
 import com.duckelekuuk.cakewars.listeners.PlayerPreJoinListener;
 import com.duckelekuuk.cakewars.match.GameManager;
@@ -34,6 +35,7 @@ public final class Cakewars extends JavaPlugin {
     public void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
 
+        pluginManager.registerEvents(new PlayerChatListener(this), this);
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerPreJoinListener(this), this);
     }
