@@ -22,10 +22,13 @@ public abstract class JSONConfig {
     private @Getter JavaPlugin plugin;
 
     @Ignore
+    private String path;
+    @Ignore
     private String file;
 
-    public JSONConfig(JavaPlugin plugin, String file) {
+    public JSONConfig(JavaPlugin plugin, String path, String file) {
         this.plugin = plugin;
+        this.path = path;
         this.file = file;
     }
 
@@ -57,7 +60,7 @@ public abstract class JSONConfig {
     private void save() throws IllegalAccessException {
         // Lets recursively save this class
         JSONObject obj = saveRecursive(this);
-        new JSONLoader(this.plugin, file).save(obj);
+        new JSONLoader(this.plugin, path, file).save(obj);
     }
 
     private JSONObject saveRecursive(Object object) throws IllegalAccessException {
@@ -103,7 +106,7 @@ public abstract class JSONConfig {
 
 
     private void load() throws IllegalAccessException {
-        JSONObject object = (JSONObject) new JSONLoader(this.plugin, file).load();
+        JSONObject object = (JSONObject) new JSONLoader(this.plugin, path, file).load();
 
         if (object == null) {
             return;
