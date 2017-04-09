@@ -2,8 +2,10 @@ package com.duckelekuuk.cakewars.match.teams;
 
 import com.duckelekuuk.cakewars.match.GameManager;
 import com.duckelekuuk.cakewars.match.GamePlayer;
+import com.duckelekuuk.cakewars.match.Generator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.scoreboard.Team;
 
 import java.util.Set;
@@ -42,4 +44,10 @@ public interface ITeam {
         });
 
     }
+
+    Location getSpawnLocation();
+    Location getEggLocation();
+
+    Generator getIronGenerator();
+    Generator getGoldGenerator();
 }

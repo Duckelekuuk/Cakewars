@@ -68,13 +68,13 @@ public class Match {
     }
 
     public void setupGenerators() {
-        generators.add(new Generator(Generator.Type.EMERALD, mapConfig.getLocations().getEmeraldGenerator1(), 16, 30,true));
-        generators.add(new Generator(Generator.Type.EMERALD, mapConfig.getLocations().getEmeraldGenerator2(), 16, 30,true));
+        generators.add(new Generator(Generator.Type.EMERALD, mapConfig.getEmeraldGenerators().getGenerator1(), 16, 30,true));
+        generators.add(new Generator(Generator.Type.EMERALD, mapConfig.getEmeraldGenerators().getGnerator2(), 16, 30,true));
 
-        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getLocations().getDiamondGenerator1(), 16, 20,true));
-        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getLocations().getDiamondGenerator2(), 16, 20,true));
-        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getLocations().getDiamondGenerator3(), 16, 20,true));
-        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getLocations().getDiamondGenerator4(), 16, 20,true));
+        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getDiamondGenerators().getGenerator1(), 16, 20,true));
+        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getDiamondGenerators().getGenerator2(), 16, 20,true));
+        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getDiamondGenerators().getGenerator3(), 16, 20,true));
+        generators.add(new Generator(Generator.Type.DIAMOND, mapConfig.getDiamondGenerators().getGenerator4(), 16, 20,true));
     }
 
     public void upgradeGenerators(Generator.Type type, int spawnRate) {

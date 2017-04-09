@@ -2,6 +2,7 @@ package com.duckelekuuk.cakewars.commands;
 
 import com.duckelekuuk.cakewars.Cakewars;
 import com.duckelekuuk.cakewars.match.GamePlayer;
+import com.duckelekuuk.cakewars.match.MatchStatus;
 import org.bukkit.command.CommandSender;
 
 @CommandInfo(
@@ -21,6 +22,7 @@ public class TestCommand extends AbstractCommand {
 
         getPlugin().getGameManager().getTeam("BLUE").setColoredNames();
 
-        getPlugin().getGameManager().getActiveMatch().startGenerators();
+//        getPlugin().getGameManager().getActiveMatch().startGenerators();
+        getPlugin().getGameManager().getActiveMatch().setMatchStatus(MatchStatus.END);
     }
 }

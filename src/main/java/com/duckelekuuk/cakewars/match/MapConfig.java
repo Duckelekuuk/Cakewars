@@ -12,14 +12,28 @@ import java.util.List;
 public class MapConfig extends JSONConfig {
 
     private @Getter Global global;
-    private @Getter Locations locations;
+    private @Getter Blue blue;
+    private @Getter Green green;
+    private @Getter Red red;
+    private @Getter Yellow yellow;
+
+    private @Getter EmeraldGenerators emeraldGenerators;
+    private @Getter DiamondGenerators diamondGenerators;
+    private @Getter Utils utils;
+
 
 
     public MapConfig(Cakewars plugin) {
         super(plugin, plugin.getConfigHandler().getGlobal().getMapConfigPath(),  plugin.getConfigHandler().getGlobal().getMapConfigFileName());
 
         this.global = new Global();
-        this.locations = new Locations();
+        this.blue = new Blue();
+        this.green = new Green();
+        this.red = new Red();
+        this.yellow = new Yellow();
+        this.emeraldGenerators = new EmeraldGenerators();
+        this.diamondGenerators = new DiamondGenerators();
+        this.utils = new Utils();
 
         initialize();
     }
@@ -30,20 +44,55 @@ public class MapConfig extends JSONConfig {
     }
 
     @Getter
-    public class Locations {
+    public class Blue {
+        private Location spawn = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location egg = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location ironGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location goldGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+    }
+
+    @Getter
+    public class Green {
+        private Location spawn = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location egg = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location ironGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location goldGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+    }
+
+    @Getter
+    public class Red {
+        private Location spawn = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location egg = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location ironGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location goldGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+    }
+
+    @Getter
+    public class Yellow {
+        private Location spawn = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location egg = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location ironGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location goldGenerator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+    }
+
+    @Getter
+    public class EmeraldGenerators {
+        private Location generator1 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location gnerator2 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+    }
+
+    @Getter
+    public class DiamondGenerators {
+
+        private Location generator1 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location generator2 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location generator3 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+        private Location generator4 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
+    }
+
+    @Getter
+    public class Utils {
         private Location lobbyLocation = new Location(Bukkit.getWorld("world"), 0, 0, 0);
         private Location spawnSpectator = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location spawnBlue = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location spawnGreen = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location spawnRed = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location spawnYellow = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-
-        private Location emeraldGenerator1 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location emeraldGenerator2 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-
-        private Location diamondGenerator1 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location diamondGenerator2 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location diamondGenerator3 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-        private Location diamondGenerator4 = new Location(Bukkit.getWorld("world"), 0, 0, 0);
     }
 }

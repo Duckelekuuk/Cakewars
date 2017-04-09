@@ -29,17 +29,17 @@ public class PlayerJoinListener implements Listener {
 
         switch (plugin.getGameManager().getActiveMatch().getMatchStatus()) {
             case LOBBY:
-                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getLocations().getLobbyLocation());
+                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getLobbyLocation());
                 break;
 
             case COUNTDOWN:
-                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getLocations().getLobbyLocation());
+                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getLobbyLocation());
                 break;
 
 
             case INGAME:
             case END:
-                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getLocations().getSpawnSpectator());
+                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getSpawnSpectator());
                 gamePlayer.makeSpectator();
                 break;
         }

@@ -54,17 +54,19 @@ public class GameManager {
     }
 
     public void initialize() {
-        this.teams = new HashSet<ITeam>() {{
-            add(new BlueTeam(plugin.getGameManager()));
-            add(new GreenTeam(plugin.getGameManager()));
-            add(new RedTeam(plugin.getGameManager()));
-            add(new YellowTeam(plugin.getGameManager()));
-        }};
 
         if (plugin.getConfigHandler().getGlobal().isReadyToPlay()) {
             this.activeMatch.setupMap();
             this.activeMatch.setupConfig();
             this.activeMatch.setupGenerators();
+
+
+            this.teams = new HashSet<ITeam>() {{
+                add(new BlueTeam(plugin.getGameManager()));
+                add(new GreenTeam(plugin.getGameManager()));
+                add(new RedTeam(plugin.getGameManager()));
+                add(new YellowTeam(plugin.getGameManager()));
+            }};
         }
     }
 }
