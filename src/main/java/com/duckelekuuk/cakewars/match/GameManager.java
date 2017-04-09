@@ -4,6 +4,7 @@ import com.duckelekuuk.cakewars.Cakewars;
 import com.duckelekuuk.cakewars.match.teams.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -40,6 +41,14 @@ public class GameManager {
         }
 
         return null;
+    }
+
+    public ITeam getTeamBelongsToEgg(Location location) {
+        if (getTeams().stream().noneMatch(iTeam -> iTeam.getEggLocation().equals(location))) {
+            return null;
+        }
+
+        return getTeams().stream().filter(iTeam -> iTeam.getEggLocation().equals(location)).findFirst().get();
     }
 
     public void assignTeam(GamePlayer gamePlayer, ITeam team) {

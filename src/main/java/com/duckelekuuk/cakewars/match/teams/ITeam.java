@@ -6,6 +6,7 @@ import com.duckelekuuk.cakewars.match.Generator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.scoreboard.Team;
 
 import java.util.Set;
@@ -26,6 +27,10 @@ public interface ITeam {
                 .stream()
                 .filter(gamePlayer -> gamePlayer.getTeam() != null && gamePlayer.getTeam().getTeamName().equals(getTeamName()))
                 .collect(Collectors.toSet());
+    }
+
+    default boolean isAlive() {
+        return getEggLocation().getBlock().getType().equals(Material.CAKE);
     }
 
     default void setColoredNames() {

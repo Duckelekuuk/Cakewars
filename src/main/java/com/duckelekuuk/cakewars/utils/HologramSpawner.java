@@ -5,7 +5,6 @@ import org.bukkit.entity.ArmorStand;
 
 public final class HologramSpawner {
 
-    private Location location;
     private ArmorStand armorStand;
 
     public HologramSpawner(String title, Location location) {
