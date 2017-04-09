@@ -1,6 +1,7 @@
 package com.duckelekuuk.cakewars.match;
 
 import com.duckelekuuk.cakewars.utils.HologramSpawner;
+import com.duckelekuuk.cakewars.utils.LocationHelper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,7 @@ public class Generator extends BukkitRunnable {
     public Generator(Type type, Location location, int maxItemsOnGround, int spawnRate, boolean withHologram) {
         this.type = type;
         this.location = new Location(location.getWorld(), location.getBlockX(), location.getY(), location.getBlockZ());
-        this.location.add(location.getX() >= 0 ? 0.5 : -0.5, 0.0, location.getZ() >= 0 ? 0.5 : -0.5);
+        this.location = LocationHelper.getMiddleOfBlock(this.location);
         this.maxItemsOnGround = maxItemsOnGround;
         this.itemsOnGround = new HashSet<>();
 
@@ -60,7 +61,7 @@ public class Generator extends BukkitRunnable {
 
     @Getter
     @AllArgsConstructor
-    enum Type {
+    public enum Type {
 
         EMERALD(Material.EMERALD),
         DIAMOND(Material.DIAMOND),
