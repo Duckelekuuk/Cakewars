@@ -27,6 +27,11 @@ public class PlayerPreJoinListener implements Listener {
 
         if (!plugin.getGameManager().getActiveMatch().isLoaded()) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Game is getting ready!");
+            return;
+        }
+
+        if (plugin.getGameManager().getGamePlayers().size() >= (plugin.getConfigHandler().getGlobal().getTeamSize() * 4)) {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_FULL, "The game is already full!");
         }
     }
 }

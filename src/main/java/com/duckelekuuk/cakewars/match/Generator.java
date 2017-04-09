@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -55,8 +56,10 @@ public class Generator extends BukkitRunnable {
         if (itemsOnGround.size() >= maxItemsOnGround) {
             return;
         }
+        Item item = location.getWorld().dropItemNaturally(location.clone().add(0, 1.0, 0), new ItemStack(type.getMaterial()));
 
-        itemsOnGround.add(location.getWorld().dropItemNaturally(location.clone().add(0, 1.0, 0), new ItemStack(type.getMaterial())).getUniqueId());
+        item.setPickupDelay(0);
+        itemsOnGround.add(item.getUniqueId());
     }
 
     @Getter

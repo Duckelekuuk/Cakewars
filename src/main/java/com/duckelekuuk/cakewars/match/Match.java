@@ -2,8 +2,8 @@ package com.duckelekuuk.cakewars.match;
 
 import com.duckelekuuk.cakewars.Cakewars;
 import com.duckelekuuk.cakewars.events.StatusChangeEvent;
+import com.duckelekuuk.cakewars.utils.FileUtils;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
@@ -43,11 +43,16 @@ public class Match {
         this.matchStatus = matchStatus;
     }
 
+    public boolean shouldStart() {
+        return getCakewars().getGameManager().getGamePlayers().size() > cakewars.getConfigHandler().getGlobal().getMinimumPlayers() && getCakewars().getGameManager().getGamePlayers().size() % 4 == 0;
+    }
+
     public void setupMap() {
         File mirror = new File(cakewars.getDataFolder().getAbsolutePath() + File.separatorChar + cakewars.getConfigHandler().getGlobal().getMapPath());
         this.mapName = mirror.getName();
 
         if (Bukkit.getServer().getWorld(mirror.getName()) != null) {
+            Bukkit.getServer().getWorld(mirror.getName()).setAutoSave(false);
             return;
         }
 
@@ -59,7 +64,9 @@ public class Match {
 
         cakewars.getLogger().info("Loading in world: " + mirror.getName());
 
-        FileUtil.copy(mirror, Bukkit.getServer().getWorldContainer());
+        File gameFolder =  new File(cakewars.getServer().getWorldContainer().getAbsolutePath() + File.separatorChar + mirror.getName());
+        gameFolder.mkdirs();
+        FileUtils.copyFolder(mirror, gameFolder);
         Bukkit.getServer().createWorld(new WorldCreator(mirror.getName()).type(WorldType.CUSTOMIZED)).setAutoSave(false);
     }
 

@@ -24,25 +24,31 @@ public interface ITeam {
         return getGameManager()
                 .getGamePlayers()
                 .stream()
-                .filter(gamePlayer -> gamePlayer.getTeam().getTeamName().equals(getTeamName()))
+                .filter(gamePlayer -> gamePlayer.getTeam() != null && gamePlayer.getTeam().getTeamName().equals(getTeamName()))
                 .collect(Collectors.toSet());
     }
 
     default void setColoredNames() {
         Team team = Bukkit.getServer().getScoreboardManager().getMainScoreboard().getTeam(getTeamName());
-        if (team ==null) {
+        if (team == null) {
+            Bukkit.getServer().broadcastMessage("Creating new Team!");
+
             team = Bukkit.getServer().getScoreboardManager().getMainScoreboard().registerNewTeam(getTeamName());
-            team.setPrefix(getPrefix() + "[" + getTeamName() + "]");
+
             team.setAllowFriendlyFire(false);
             team.setDisplayName(getTeamName());
 
+            team.setPrefix(getPrefix() + "");
+
+            team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
+            team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
         }
+
         Team finalTeam = team;
         getMembers().forEach(gamePlayer -> {
             finalTeam.addEntry(gamePlayer.getPlayer().getUniqueId().toString());
             gamePlayer.getPlayer().setPlayerListName(getPrefix() + "[" + getTeamName() + "] " + gamePlayer.getPlayer().getName());
         });
-
     }
 
     Location getSpawnLocation();

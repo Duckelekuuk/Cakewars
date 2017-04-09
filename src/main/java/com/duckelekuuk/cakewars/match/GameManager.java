@@ -67,6 +67,11 @@ public class GameManager {
                 add(new RedTeam(plugin.getGameManager()));
                 add(new YellowTeam(plugin.getGameManager()));
             }};
+
+            teams
+                    .stream()
+                    .filter(iTeam -> plugin.getServer().getScoreboardManager().getMainScoreboard().getTeam(iTeam.getTeamName()) != null)
+                    .forEach(iTeam -> plugin.getServer().getScoreboardManager().getMainScoreboard().getTeam(iTeam.getTeamName()).unregister());
         }
     }
 }

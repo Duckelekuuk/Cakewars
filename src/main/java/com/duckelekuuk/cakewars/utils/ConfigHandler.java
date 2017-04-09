@@ -31,6 +31,8 @@ public class ConfigHandler extends JSONConfig {
         private String mapPath = "game/map";
         private String mapConfigPath = "game";
         private String mapConfigFileName = "config.json";
+        private int minimumPlayers = 4;
+        private int teamSize = 3;
 
     }
 

@@ -2,6 +2,7 @@ package com.duckelekuuk.cakewars.listeners;
 
 import com.duckelekuuk.cakewars.Cakewars;
 import com.duckelekuuk.cakewars.match.GamePlayer;
+import com.duckelekuuk.cakewars.utils.LocationHelper;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -29,7 +30,11 @@ public class PlayerJoinListener implements Listener {
 
         switch (plugin.getGameManager().getActiveMatch().getMatchStatus()) {
             case LOBBY:
-                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getLobbyLocation());
+                event.getPlayer().teleport(LocationHelper.getMiddleOfBlock(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getLobbyLocation()));
+
+                if(plugin.getGameManager().getActiveMatch().shouldStart()) {
+
+                }
                 break;
 
             case COUNTDOWN:
