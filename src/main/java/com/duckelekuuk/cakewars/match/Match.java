@@ -7,7 +7,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
-import org.bukkit.util.FileUtil;
+import org.bukkit.block.Block;
 
 import java.io.File;
 import java.util.HashSet;
@@ -24,6 +24,7 @@ public class Match {
     private MapConfig mapConfig;
 
     private Set<Generator> generators;
+    private Set<Block> blocks;
 
     private boolean loaded;
 
@@ -31,6 +32,7 @@ public class Match {
         this.cakewars = cakewars;
         this.matchStatus = MatchStatus.LOBBY;
         this.generators = new HashSet<>();
+        this.blocks = new HashSet<>();
         this.loaded = true;
     }
 
