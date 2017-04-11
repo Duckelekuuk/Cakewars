@@ -12,15 +12,23 @@ import org.bukkit.scoreboard.Team;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public interface ITeam {
+public abstract class AbstractTeam {
 
-    String getTeamName();
+    private GameManager gameManager;
 
-    ChatColor getPrefix();
+    public AbstractTeam(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
 
-    GameManager getGameManager();
+    public abstract String getTeamName();
 
-    default Set<GamePlayer> getMembers() {
+    public abstract ChatColor getPrefix();
+
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    public Set<GamePlayer> getMembers() {
 
         return getGameManager()
                 .getGamePlayers()
@@ -29,11 +37,11 @@ public interface ITeam {
                 .collect(Collectors.toSet());
     }
 
-    default boolean isAlive() {
+    public boolean isAlive() {
         return getEggLocation().getBlock().getType().equals(Material.CAKE);
     }
 
-    default void setColoredNames() {
+    public void setColoredNames() {
         Team team = Bukkit.getServer().getScoreboardManager().getMainScoreboard().getTeam(getTeamName());
         if (team == null) {
             Bukkit.getServer().broadcastMessage("Creating new Team!");
@@ -56,9 +64,9 @@ public interface ITeam {
         });
     }
 
-    Location getSpawnLocation();
-    Location getEggLocation();
+    public abstract Location getSpawnLocation();
+    public abstract Location getEggLocation();
 
-    Generator getIronGenerator();
-    Generator getGoldGenerator();
+    public abstract Generator getIronGenerator();
+    public abstract Generator getGoldGenerator();
 }

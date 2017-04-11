@@ -5,14 +5,12 @@ import com.duckelekuuk.cakewars.match.Generator;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
-public class RedTeam implements ITeam {
-
-    private GameManager gameManager;
+public class RedTeam extends AbstractTeam {
     private Generator ironGenerator;
     private Generator goldGenerator;
 
     public RedTeam(GameManager gameManager) {
-        this.gameManager = gameManager;
+        super(gameManager);
         this.ironGenerator = new Generator(Generator.Type.IRON, gameManager.getActiveMatch().getMapConfig().getRed().getIronGenerator(), 16, 5, true);
         this.goldGenerator = new Generator(Generator.Type.GOLD, gameManager.getActiveMatch().getMapConfig().getRed().getIronGenerator(), 16, 5, true);
     }
@@ -28,18 +26,13 @@ public class RedTeam implements ITeam {
     }
 
     @Override
-    public GameManager getGameManager() {
-        return gameManager;
-    }
-
-    @Override
     public Location getSpawnLocation() {
-        return gameManager.getActiveMatch().getMapConfig().getRed().getSpawn();
+        return getGameManager().getActiveMatch().getMapConfig().getRed().getSpawn();
     }
 
     @Override
     public Location getEggLocation() {
-        return gameManager.getActiveMatch().getMapConfig().getRed().getEgg();
+        return getGameManager().getActiveMatch().getMapConfig().getRed().getEgg();
     }
 
     @Override

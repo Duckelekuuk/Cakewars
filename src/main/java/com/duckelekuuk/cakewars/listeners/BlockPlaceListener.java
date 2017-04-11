@@ -1,7 +1,7 @@
 package com.duckelekuuk.cakewars.listeners;
 
 import com.duckelekuuk.cakewars.Cakewars;
-import com.duckelekuuk.cakewars.match.teams.ITeam;
+import com.duckelekuuk.cakewars.match.teams.AbstractTeam;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
         if (event.getBlock().getType().equals(Material.CAKE)) {
-            ITeam cakeTeam = cakewars.getGameManager().getTeamBelongsToEgg(event.getBlock().getLocation());
+            AbstractTeam cakeTeam = cakewars.getGameManager().getTeamBelongsToEgg(event.getBlock().getLocation());
 
             event.getBlock().setType(Material.AIR);
 

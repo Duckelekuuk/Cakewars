@@ -3,10 +3,10 @@ package com.duckelekuuk.cakewars.match;
 import com.duckelekuuk.cakewars.Cakewars;
 import com.duckelekuuk.cakewars.match.teams.*;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class GameManager {
 
     private @Getter Cakewars plugin;
-    private @Getter Set<ITeam> teams;
+    private @Getter Set<AbstractTeam> teams;
     private @Getter Set<GamePlayer> gamePlayers;
     private @Getter Match activeMatch;
 
@@ -43,21 +43,21 @@ public class GameManager {
         return null;
     }
 
-    public ITeam getTeamBelongsToEgg(Location location) {
-        if (getTeams().stream().noneMatch(iTeam -> iTeam.getEggLocation().equals(location))) {
+    public AbstractTeam getTeamBelongsToEgg(Location location) {
+        if (getTeams().stream().noneMatch(abstractTeam -> abstractTeam.getEggLocation().equals(location))) {
             return null;
         }
 
-        return getTeams().stream().filter(iTeam -> iTeam.getEggLocation().equals(location)).findFirst().get();
+        return getTeams().stream().filter(abstractTeam -> abstractTeam.getEggLocation().equals(location)).findFirst().get();
     }
 
-    public void assignTeam(GamePlayer gamePlayer, ITeam team) {
+    public void assignTeam(GamePlayer gamePlayer, AbstractTeam team) {
         gamePlayer.setTeam(team);
     }
 
-    public ITeam getTeam(String team) {
-        for (ITeam iTeam : getTeams()) {
-            if (iTeam.getTeamName().equalsIgnoreCase(team)) return iTeam;
+    public AbstractTeam getTeam(String team) {
+        for (AbstractTeam abstractTeam : getTeams()) {
+            if (abstractTeam.getTeamName().equalsIgnoreCase(team)) return abstractTeam;
         }
         return null;
     }
@@ -70,17 +70,16 @@ public class GameManager {
             this.activeMatch.setupGenerators();
 
 
-            this.teams = new HashSet<ITeam>() {{
+            this.teams = new HashSet<AbstractTeam>() {{
                 add(new BlueTeam(plugin.getGameManager()));
                 add(new GreenTeam(plugin.getGameManager()));
                 add(new RedTeam(plugin.getGameManager()));
                 add(new YellowTeam(plugin.getGameManager()));
             }};
-
-            teams
-                    .stream()
-                    .filter(iTeam -> plugin.getServer().getScoreboardManager().getMainScoreboard().getTeam(iTeam.getTeamName()) != null)
-                    .forEach(iTeam -> plugin.getServer().getScoreboardManager().getMainScoreboard().getTeam(iTeam.getTeamName()).unregister());
+            Scoreboard mainScoreboard = plugin.getServer().getScoreboardManager().getMainScoreboard();
+            teams.stream()
+                    .filter(abstractTeam -> mainScoreboard.getTeam(abstractTeam.getTeamName()) != null)
+                    .forEach(abstractTeam -> mainScoreboard.getTeam(abstractTeam.getTeamName()).unregister());
         }
     }
 }
