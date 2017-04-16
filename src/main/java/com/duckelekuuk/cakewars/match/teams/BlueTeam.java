@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
 public class BlueTeam extends AbstractTeam {
+
     private Generator ironGenerator;
     private Generator goldGenerator;
 
@@ -23,6 +24,11 @@ public class BlueTeam extends AbstractTeam {
     @Override
     public ChatColor getPrefix() {
         return ChatColor.BLUE;
+    }
+
+    @Override
+    public String getHexColor() {
+        return "#0000FF";
     }
 
     @Override

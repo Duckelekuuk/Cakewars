@@ -26,6 +26,11 @@ public class RedTeam extends AbstractTeam {
     }
 
     @Override
+    public String getHexColor() {
+        return "#FF0000";
+    }
+
+    @Override
     public Location getSpawnLocation() {
         return getGameManager().getActiveMatch().getMapConfig().getRed().getSpawn();
     }

@@ -24,6 +24,8 @@ public abstract class AbstractTeam {
 
     public abstract ChatColor getPrefix();
 
+    public abstract String getHexColor();
+
     public GameManager getGameManager() {
         return gameManager;
     }
@@ -59,7 +61,7 @@ public abstract class AbstractTeam {
 
         Team finalTeam = team;
         getMembers().forEach(gamePlayer -> {
-            finalTeam.addEntry(gamePlayer.getPlayer().getUniqueId().toString());
+            finalTeam.addEntry(gamePlayer.getPlayer().getName());
             gamePlayer.getPlayer().setPlayerListName(getPrefix() + "[" + getTeamName() + "] " + gamePlayer.getPlayer().getName());
         });
     }
