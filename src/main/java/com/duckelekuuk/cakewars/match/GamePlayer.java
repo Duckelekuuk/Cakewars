@@ -2,8 +2,10 @@ package com.duckelekuuk.cakewars.match;
 
 import com.duckelekuuk.cakewars.match.teams.AbstractTeam;
 import com.duckelekuuk.cakewars.utils.ColorHelper;
+import com.duckelekuuk.cakewars.utils.ItemStackBuilder;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -27,9 +29,12 @@ public class GamePlayer {
 
     }
 
-    public void GiveInventory() {
-        ItemStack itemStack = new ItemStack(Material.LEATHER_HELMET);
-        LeatherArmorMeta itemMeta = (LeatherArmorMeta) itemStack.getItemMeta();
-        itemMeta.setColor(ColorHelper.getColorFromJcolor(ColorHelper.chatColorToJColor(team.getPrefix())));
+    public void giveInventory() {
+        player.getInventory().setItem(0, new ItemStack(Material.WOOD_PICKAXE));
+
+        player.getInventory().setHelmet(new ItemStackBuilder(Material.LEATHER_HELMET).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
+        player.getInventory().setChestplate(new ItemStackBuilder(Material.LEATHER_CHESTPLATE).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
+        player.getInventory().setLeggings(new ItemStackBuilder(Material.LEATHER_LEGGINGS).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
+        player.getInventory().setBoots(new ItemStackBuilder(Material.LEATHER_BOOTS).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
     }
 }

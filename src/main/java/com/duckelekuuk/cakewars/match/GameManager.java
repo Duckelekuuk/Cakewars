@@ -51,6 +51,10 @@ public class GameManager {
         return getTeams().stream().filter(abstractTeam -> abstractTeam.getEggLocation().equals(location)).findFirst().get();
     }
 
+    public void giveOutKit(AbstractTeam abstractTeam) {
+        abstractTeam.getMembers().forEach(GamePlayer::giveInventory);
+    }
+
     public void assignTeam(GamePlayer gamePlayer, AbstractTeam team) {
         gamePlayer.setTeam(team);
     }
@@ -76,6 +80,7 @@ public class GameManager {
                 add(new RedTeam(plugin.getGameManager()));
                 add(new YellowTeam(plugin.getGameManager()));
             }};
+
             Scoreboard mainScoreboard = plugin.getServer().getScoreboardManager().getMainScoreboard();
             teams.stream()
                     .filter(abstractTeam -> mainScoreboard.getTeam(abstractTeam.getTeamName()) != null)
