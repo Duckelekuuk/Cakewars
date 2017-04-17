@@ -38,13 +38,12 @@ public class PlayerJoinListener implements Listener {
                 break;
 
             case COUNTDOWN:
-                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getLobbyLocation());
+                event.getPlayer().teleport(LocationHelper.getMiddleOfBlock(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getLobbyLocation()));
                 break;
 
 
             case INGAME:
             case END:
-                event.getPlayer().teleport(plugin.getGameManager().getActiveMatch().getMapConfig().getUtils().getSpawnSpectator());
                 gamePlayer.makeSpectator();
                 break;
         }

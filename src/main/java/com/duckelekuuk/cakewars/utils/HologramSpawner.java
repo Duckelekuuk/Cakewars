@@ -1,10 +1,12 @@
 package com.duckelekuuk.cakewars.utils;
 
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 
 public final class HologramSpawner {
 
+    @Getter
     private ArmorStand armorStand;
 
     public HologramSpawner(String title, Location location) {

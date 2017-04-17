@@ -1,8 +1,10 @@
 package com.duckelekuuk.cakewars.match;
 
+import com.duckelekuuk.cakewars.Cakewars;
 import com.duckelekuuk.cakewars.match.teams.AbstractTeam;
 import com.duckelekuuk.cakewars.utils.ColorHelper;
 import com.duckelekuuk.cakewars.utils.ItemStackBuilder;
+import com.duckelekuuk.cakewars.utils.LocationHelper;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -26,7 +28,7 @@ public class GamePlayer {
     }
 
     public void makeSpectator() {
-
+        getPlayer().teleport(LocationHelper.getMiddleOfBlock(team.getGameManager().getActiveMatch().getMapConfig().getUtils().getSpawnSpectator()));
     }
 
     public void giveInventory() {
