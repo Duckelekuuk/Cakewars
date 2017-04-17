@@ -1,28 +1,45 @@
 package com.duckelekuuk.cakewars.listeners;
 
 import com.duckelekuuk.cakewars.Cakewars;
-import com.duckelekuuk.cakewars.match.teams.AbstractTeam;
-import org.bukkit.Material;
+import com.duckelekuuk.cakewars.match.GamePlayer;
+import com.duckelekuuk.cakewars.match.MatchStatus;
+import lombok.Getter;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockPlaceListener implements Listener {
 
-    private Cakewars cakewars;
+    @Getter
+    private Cakewars plugin;
 
-    public BlockPlaceListener(Cakewars cakewars) {
-        this.cakewars = cakewars;
+    public BlockPlaceListener(Cakewars plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler
-    public void onBreak(BlockBreakEvent event) {
-        if (event.getBlock().getType().equals(Material.CAKE)) {
-            AbstractTeam cakeTeam = cakewars.getGameManager().getTeamBelongsToEgg(event.getBlock().getLocation());
-
-            event.getBlock().setType(Material.AIR);
-
-            event.setCancelled(true);
+    public void onPlace(BlockPlaceEvent event) {
+        if (!plugin.getConfigHandler().getGlobal().isReadyToPlay()) {
+            return;
         }
+
+        if (!plugin.getGameManager().getActiveMatch().getMatchStatus().equals(MatchStatus.INGAME)) {
+            event.setCancelled(true);
+            return;
+        }
+
+        GamePlayer gamePlayer = plugin.getGameManager().getGameplayer(event.getPlayer(), false);
+
+        if(gamePlayer == null) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (gamePlayer.isSpectator()) {
+            event.setCancelled(true);
+            return;
+        }
+
+        plugin.getGameManager().getActiveMatch().getBlocks().add(event.getBlockPlaced());
     }
 }

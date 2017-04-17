@@ -1,10 +1,9 @@
 package com.duckelekuuk.cakewars;
 
 import com.duckelekuuk.cakewars.commands.CommandManager;
-import com.duckelekuuk.cakewars.listeners.PlayerChatListener;
-import com.duckelekuuk.cakewars.listeners.PlayerJoinListener;
-import com.duckelekuuk.cakewars.listeners.PlayerPreJoinListener;
+import com.duckelekuuk.cakewars.listeners.*;
 import com.duckelekuuk.cakewars.match.GameManager;
+import com.duckelekuuk.cakewars.match.Generator;
 import com.duckelekuuk.cakewars.menus.MenuManager;
 import com.duckelekuuk.cakewars.utils.ConfigHandler;
 import lombok.Getter;
@@ -32,11 +31,22 @@ public final class Cakewars extends JavaPlugin {
         getServer().getOnlinePlayers().forEach(o -> gameManager.getGameplayer(o, true));
     }
 
+    @Override
+    public void onDisable() {
+        for (Generator generator : gameManager.getActiveMatch().getGenerators()) {
+            generator.getHologramSpawner().getArmorStand().remove();
+        }
+    }
+
     public void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
 
+        pluginManager.registerEvents(new BlockBreakListener(this), this);
+        pluginManager.registerEvents(new BlockPlaceListener(this), this);
+        pluginManager.registerEvents(new CakeDestroyListener(this), this);
         pluginManager.registerEvents(new PlayerChatListener(this), this);
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerPreJoinListener(this), this);
+        pluginManager.registerEvents(new WorldListener(), this);
     }
 }
