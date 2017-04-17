@@ -7,6 +7,6 @@ public class LocationHelper {
     private LocationHelper() {}
 
     public static Location getMiddleOfBlock(Location location) {
-        return  location.clone().add(location.getX() >= 0 ? 0.5 : -0.5, 0.0, location.getZ() >= 0 ? 0.5 : -0.5);
+        return location.getBlock().getLocation().clone().add(0.5D, 0D,0.5D).setDirection(location.getDirection());
     }
 }
