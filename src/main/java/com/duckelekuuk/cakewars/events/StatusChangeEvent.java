@@ -14,16 +14,16 @@ public class StatusChangeEvent extends Event {
 
     private static final HandlerList HANDLERLIST = new HandlerList();
 
-    public Match match;
-    public MatchStatus oldStatus;
-    public MatchStatus newStatus;
+    private Match match;
+    private MatchStatus oldStatus;
+    private MatchStatus newStatus;
 
     @Override
     public HandlerList getHandlers() {
         return HANDLERLIST;
     }
 
-    public static HandlerList getHandlerlist() {
+    public static HandlerList getHandlerList() {
         return HANDLERLIST;
     }
 }
