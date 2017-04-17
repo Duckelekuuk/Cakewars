@@ -3,9 +3,10 @@ package com.duckelekuuk.cakewars.listeners;
 import com.duckelekuuk.cakewars.Cakewars;
 import lombok.Getter;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBurnEvent;
 
-public class BlockBurnListener {
+public class BlockBurnListener implements Listener {
 
     @Getter
     private Cakewars plugin;

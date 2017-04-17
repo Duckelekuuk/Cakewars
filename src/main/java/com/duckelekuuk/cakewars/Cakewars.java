@@ -42,10 +42,12 @@ public final class Cakewars extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
 
         pluginManager.registerEvents(new BlockBreakListener(this), this);
+        pluginManager.registerEvents(new BlockBurnListener(this), this);
         pluginManager.registerEvents(new BlockPlaceListener(this), this);
         pluginManager.registerEvents(new CakeDestroyListener(this), this);
         pluginManager.registerEvents(new PlayerChatListener(this), this);
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
+        pluginManager.registerEvents(new PlayerPickupItemListener(this), this);
         pluginManager.registerEvents(new PlayerPreJoinListener(this), this);
         pluginManager.registerEvents(new WorldListener(), this);
     }
