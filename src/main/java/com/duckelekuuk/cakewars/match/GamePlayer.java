@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -34,9 +35,11 @@ public class GamePlayer {
     public void giveInventory() {
         player.getInventory().setItem(0, new ItemStack(Material.WOOD_PICKAXE));
 
-        player.getInventory().setHelmet(new ItemStackBuilder(Material.LEATHER_HELMET).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
-        player.getInventory().setChestplate(new ItemStackBuilder(Material.LEATHER_CHESTPLATE).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
-        player.getInventory().setLeggings(new ItemStackBuilder(Material.LEATHER_LEGGINGS).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
-        player.getInventory().setBoots(new ItemStackBuilder(Material.LEATHER_BOOTS).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).build());
+        player.getInventory().setHelmet(new ItemStackBuilder(Material.LEATHER_HELMET).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).setUnbreakable(true).build());
+        player.getInventory().setChestplate(new ItemStackBuilder(Material.LEATHER_CHESTPLATE).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).setUnbreakable(true).build());
+        player.getInventory().setLeggings(new ItemStackBuilder(Material.LEATHER_LEGGINGS).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).setUnbreakable(true).build());
+        player.getInventory().setBoots(new ItemStackBuilder(Material.LEATHER_BOOTS).setColor(ColorHelper.hexToColor(getTeam().getHexColor())).setUnbreakable(true).build());
+
+        player.getInventory().addItem((new ItemStackBuilder(Material.WOOL)).setDurability(DyeColor.valueOf(team.getTeamName()).getData()).setUnbreakable(true).build());
     }
 }
